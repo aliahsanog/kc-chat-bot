@@ -16,7 +16,7 @@ import streamlit as st
 HTTP_URL_PATTERN = r'^http[s]{0,1}://.+$'
 
 # Define OpenAI api_key
-openai.api_key = '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'
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 ################################################################################
 ### READ the Embeddings file CSV into a Pandas Data Frame
@@ -67,7 +67,7 @@ def create_context(
 def answer_question(
     df,
     model="text-davinci-003",
-    question="Am I allowed to publish model outputs to Twitter, without a human review?",
+    question="How do we customize SMI?",
     max_len=1800,
     size="ada",
     debug=False,
@@ -109,14 +109,10 @@ def answer_question(
 ### Get Question and try to answer it with the context
 ################################################################################
 
-st.title("I am your assistant trained on Nich Bundy's knoweldge, who was trained by Andrew Magnee, ask me any question that you think the Knowldege Center articles should be able to answer")
+st.title("Ask me anything that you think we have explained in OG Knowledge Center")
 
 question_input = st.text_input("Question:")
 
 if question_input:
 	 answer = answer_question(df, question=question_input)
 	 st.text_area("Answer:", answer)
-
-#print(answer_question(df, question="What day is it?", debug=True))
-
-#print(answer_question(df, question="What is our newest embeddings model?"))
