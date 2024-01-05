@@ -109,7 +109,7 @@ def answer_question(
 ### Get Question and try to answer it with the context
 ################################################################################
 
-st.title("Ask me anything that you think we have explained in OG Knowledge Center")
+st.title("Ask me any question based on OG Knowledge Center")
 
 question_input = st.text_input("Question:")
 
