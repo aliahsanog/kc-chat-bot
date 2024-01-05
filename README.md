@@ -1,7 +1,7 @@
-# Welcome to streamlit
+# Welcome to OG Knowledge Center Chatbot
 
-This is the app you get when you run `streamlit hello`, extracted as its own app.
+This is a POC for how a chatbot might help internal and external folks to help answer their questions. 
 
-Edit [Hello.py](./Hello.py) to customize this app to your heart's desire. ❤️
+Current Knowledge is limited to what is available in KC
 
-Check it out on [Streamlit Community Cloud](https://st-hello-app.streamlit.app/)
+Test it out ❤️
