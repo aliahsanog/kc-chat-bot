@@ -22,22 +22,22 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 ### READ the Embeddings file CSV into a Pandas Data Frame
 ################################################################################
 
-df=pd.read_csv('processed/embeddings.csv', index_col=0)
-df['embeddings'] = df['embeddings'].apply(literal_eval).apply(np.array)
 
-df.head()
 
 ################################################################################
 ### For the given question and the given pandas dataframe find create the relevant context
 ################################################################################
 
 def create_context(
-    question, df, max_len=1800, size="ada"
+    question, max_len=1800, size="ada"
 ):
     """
     Create a context for a question by finding the most similar context from the dataframe
     """
+    df=pd.read_csv('processed/embeddings.csv', index_col=0)
+    df['embeddings'] = df['embeddings'].apply(literal_eval).apply(np.array)
 
+    df.head()
     # Get the embeddings for the question
     q_embeddings = openai.Embedding.create(input=question, engine='text-embedding-ada-002')['data'][0]['embedding']
 
@@ -65,8 +65,7 @@ def create_context(
     return "\n\n###\n\n".join(returns)
 
 def answer_question(
-    df,
-    model="text-davinci-003",
+    model="gpt-3.5-turbo-instruct",
     question="How do we customize SMI?",
     max_len=1800,
     size="ada",
@@ -79,7 +78,6 @@ def answer_question(
     """
     context = create_context(
         question,
-        df,
         max_len=max_len,
         size=size,
     )
@@ -114,5 +112,5 @@ st.title("Ask me any question based on OG Knowledge Center")
 question_input = st.text_input("Question:")
 
 if question_input:
-	 answer = answer_question(df, question=question_input)
+	 answer = answer_question(question=question_input)
 	 st.text_area("Answer:", answer)
